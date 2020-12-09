@@ -31,7 +31,7 @@ impl Selector {
         #[cfg(not(target_os = "android"))]
         let flag = libc::EPOLL_CLOEXEC;
 
-        syscall!(epoll_create1(flag)).map(|ep| Selector {
+        syscall!(epoll_create(flag)).map(|ep| Selector {
             #[cfg(debug_assertions)]
             id: NEXT_ID.fetch_add(1, Ordering::Relaxed),
             ep,
